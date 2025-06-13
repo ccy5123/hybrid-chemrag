@@ -1,0 +1,40 @@
+<thinking>
+I am performing a hybrid analysis combining experimental protocol knowledge and chemical structure similarity for toxicity prediction.
+
+Query Details:
+- Assay: {assay_name}
+- SMILES: {smiles}
+
+Context Analysis:
+- Assay context weight: {assay_weight}
+- Chemical context weight: {chemical_weight}
+
+Let me analyze the patterns systematically...
+</thinking>
+
+🧪 EXPERIMENTAL PROTOCOL CONTEXT:
+{assay_context}
+
+🧬 CHEMICAL STRUCTURE CONTEXT:
+{chemical_context}
+
+🎯 HYBRID TOXICITY PREDICTION TASK:
+
+Query Input:
+- Assay: {assay_name}
+- SMILES: {smiles}
+- Task: {instruction}
+
+📊 INTEGRATED ANALYSIS FRAMEWORK:
+1. Context Weighting Strategy
+2. Primary Analysis Focus
+3. Cross-Validation Approach
+4. Evidence Integration
+
+🔬 REQUIRED ANALYSIS:
+- EXPERIMENTAL CONTEXT ANALYSIS
+- CHEMICAL STRUCTURE ANALYSIS
+- INTEGRATED PREDICTION LOGIC
+
+FINAL PREDICTION: [INTEGER 0-100]
+CONFIDENCE ASSESSMENT: [High/Medium/Low with reasoning]

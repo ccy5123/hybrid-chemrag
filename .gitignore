@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Environments
+.env
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# FAISS & Pickle artifacts
+*.faiss
+*.pkl
+
+# Data
+/data/*.jsonl
+
+# Results
+hybrid_rag_results.json

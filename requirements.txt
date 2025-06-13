@@ -1,0 +1,9 @@
+numpy
+pandas
+rdkit
+langchain
+sentence-transformers
+faiss-cpu
+anthropic
+openai
+scikit-learn  # optional, useful for metrics or future extensions
