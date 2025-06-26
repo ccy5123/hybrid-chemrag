@@ -1,0 +1,359 @@
+{
+  "model": "hybrid-rag-claude-sonnet-4",
+  "components": {
+    "assay_similarity": "LangChain + HuggingFace Embeddings",
+    "chemical_similarity": "RDKit + Molecular Fingerprints",
+    "integration": "Claude Sonnet 4"
+  },
+  "results": {
+    "predictions": [
+      29,
+      64,
+      59,
+      64,
+      24,
+      64,
+      0,
+      29,
+      64,
+      22,
+      74,
+      59,
+      29,
+      29,
+      0,
+      29,
+      32,
+      29,
+      29,
+      0
+    ],
+    "actuals": [
+      88,
+      87,
+      86,
+      36,
+      83,
+      84,
+      84,
+      87,
+      87,
+      84,
+      84,
+      80,
+      40,
+      76,
+      86,
+      55,
+      38,
+      87,
+      88,
+      38
+    ],
+    "explanations": [
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol shows consistent patterns across all similar assays (similarity 0.961), all targeting the same TOX21_ERa_LUC_VM7_Agonist endpoint. This is a cell-based luciferase reporter assay using VM7 human breast tissue cells to measure estrogen receptor alpha agonist activity. All similar assays show identical activity values of 59 (Medium category), indicating a consistent baseline response for this specific protocol. The 22-hour exposure time and 1536-well format suggest a standardized high-throughput screening approach optimized for detecting estrogenic activity.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (COc1ccc(CCC(C)=O)cc1) shows perfect structural matches (Tanimoto 1.000) with two reference compounds exhibiting Very High (LogAC50: 87) and High (LogAC50: 84) activities. This molecule contains key structural features associated with estrogenic activity: a para-methoxyphenyl group and a propyl ketone chain. The additional similar compounds (Tanimoto 0.788) represent naphthalene analogs with the same functional groups, showing High to Medium activities (LogAC50: 69-80). The molecular weight (178.2) and LogP (2.22) fall within favorable ranges for estrogen receptor binding.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight 0.50)**: The assay-specific baseline suggests moderate activity (59) for this protocol type.\n\n**Chemical Evidence (Weight 0.50)**: Perfect structural matches demonstrate high estrogenic potential (84-87), while related naphthalene analogs confirm the pharmacophore's activity.\n\n**Conflict Resolution**: The chemical evidence strongly indicates higher activity than the experimental baseline. Given the perfect structural matches with high-activity compounds and the presence of established estrogenic pharmacophores, the chemical evidence provides more specific predictive value than the general assay baseline.\n\n**Weighted Integration**: \n- Experimental contribution: 59 \u00d7 0.50 = 29.5\n- Chemical contribution: 85.5 (average of perfect matches) \u00d7 0.50 = 42.75\n- Combined prediction: 29.5 + 42.75 = 72.25\n\n**FINAL PREDICTION**: 72\n\n**CONFIDENCE ASSESSMENT**: High - Perfect structural matches with known active compounds provide strong chemical evidence, while consistent experimental protocol data supports reliable assay performance. The presence of established estrogenic pharmacophores (para-methoxyphenyl group) further validates the prediction.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe assay TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780 is an estrogen receptor alpha (ER\u03b1) agonist assay using VM7 human breast tissue cells. The protocol includes ICI182780 (fulvestrant), a selective estrogen receptor degrader (SERD), which blocks endogenous estrogen activity to isolate compound-specific agonist effects.\n\nKey experimental insights:\n- All similar assays show identical activity values (64) in the \"Medium\" category\n- The assay design specifically tests for ER\u03b1 agonist activity\n- 22-hour exposure time allows for both direct binding and transcriptional effects\n- High-throughput 1536-well format suggests robust statistical power\n\n**CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query compound is dibenzyl phosphate, a phosphoric acid diester with two benzyl groups. Structural analysis reveals:\n\nCritical observations from chemical similarity:\n- Three identical compounds (Tanimoto = 1.000) show variable activities: Very High (87), Low (35), and Low (41)\n- This variability suggests assay-dependent or concentration-dependent effects\n- The dibenzyl oxalate analog (Tanimoto = 0.532) shows Low activity (48)\n- Diphenyl phosphate (Tanimoto = 0.511) shows Low activity (38)\n\nStructural features relevant to ER\u03b1 binding:\n- Lacks typical estrogenic pharmacophores (phenolic hydroxyl, steroid backbone)\n- Phosphate group may interact with receptor binding site\n- Benzyl groups provide hydrophobic interactions but lack optimal spacing for ER\u03b1\n\n**INTEGRATED PREDICTION LOGIC**:\n\nCombining experimental (0.50) and chemical (0.50) contexts:\n\nExperimental evidence strongly suggests Medium activity (64) based on consistent assay-specific patterns. The identical assay results provide high confidence in this range.\n\nChemical evidence shows mixed signals - while the exact compound has been tested with variable results (35-87 range), the structural analogs consistently show Low activity (38-48). The lack of classical estrogenic features suggests limited ER\u03b1 agonist potential.\n\nResolution strategy: The experimental context provides more consistent and assay-specific information. The chemical variability likely reflects different assay conditions or concentrations. Given the balanced weighting and the consistency of experimental data, I prioritize the experimental prediction while acknowledging chemical structure limitations.\n\n**FINAL PREDICTION**: 52\n\n**CONFIDENCE ASSESSMENT**: Medium\n\nJustification: While experimental context shows consistent Medium-range activity, the chemical structure analysis reveals significant variability in the same compound's performance and lack of optimal estrogenic features. The balanced weighting (0.50/0.50) requires integration of both contexts. The prediction of 52 represents a compromise between the experimental evidence (suggesting ~64) and chemical evidence (suggesting lower activity based on structural analogs). Medium confidence reflects the tension between consistent experimental data and variable chemical performance.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_BLA_Agonist_ratio assay measures estrogen receptor alpha agonist activity using HEK293T cells over 24 hours. All similar assay entries show consistent activity values of 59 (Medium category), indicating this specific assay configuration tends to produce moderate estrogenic responses. The high similarity scores (0.958) suggest very reliable experimental context data.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (C[n+]1ccn(Cc2ccccc2)c1) is a benzyl-substituted imidazolium cation with MW=173.2 and LogP=1.36. \n\n**Perfect Match Evidence**: Most critically, there's an identical molecule (Tanimoto=1.000) with LogAC50=39 (Low activity), providing direct experimental evidence.\n\n**Structural Pattern Analysis**: The related imidazolium derivatives (CCn1cc[n+](C)c1) consistently show much higher activity (LogAC50: 65-87, Medium to Very High). The key difference is the benzyl substitution vs. ethyl substitution, where the bulkier benzyl group appears to significantly reduce estrogenic activity.\n\n**Structure-Activity Relationship**: The benzyl group likely creates steric hindrance that prevents effective binding to the estrogen receptor, explaining the dramatic activity reduction compared to the smaller ethyl analogs.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Context (Weight 0.50)**: Suggests moderate activity (~59) based on assay patterns\n**Chemical Context (Weight 0.50)**: Strongly indicates low activity (~39) based on perfect structural match\n\n**Conflict Resolution**: The perfect chemical match (Tanimoto=1.000) provides definitive evidence that overrides general assay trends. The identical molecule's experimental result of LogAC50=39 is the most reliable predictor.\n\n**Weighted Calculation**: \n- Experimental prediction: 59 \u00d7 0.50 = 29.5\n- Chemical prediction: 39 \u00d7 0.50 = 19.5\n- Combined: 29.5 + 19.5 = 49\n\nHowever, given the perfect structural match, the chemical evidence should be considered more definitive.\n\n**FINAL PREDICTION**: 39\n\n**CONFIDENCE ASSESSMENT**: High - The presence of an identical molecule with experimental data provides the highest possible confidence level. The perfect Tanimoto similarity (1.000) across all fingerprint methods eliminates structural uncertainty, making this prediction highly reliable despite some conflict with general assay patterns.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol data shows consistent patterns across similar assays for TOX21_ERa_LUC_VM7_Antagonist_0.5nM_E2. All three similar assays demonstrate:\n- Identical assay type (estrogen receptor alpha antagonist screening)\n- Consistent activity level of 64 (Medium category)\n- High similarity scores (0.728) indicating reliable protocol matching\n\nThis suggests the assay has moderate sensitivity for detecting ER-alpha antagonistic activity, with a baseline expectation around the medium activity range.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (dodecanedioic acid, C12 dicarboxylic acid) shows exceptional structural similarity to known compounds:\n\n**Perfect Matches (Tanimoto 1.000)**:\n- Three identical molecules with varying activities: 88 (Very High), 79 (High), and 30 (Low)\n- This indicates the same compound has been tested multiple times with variable results\n\n**Near-Perfect Matches (Tanimoto 0.984)**:\n- C13 dicarboxylic acid homologs showing High (74) and Very High (87) activities\n- Structural extension by one carbon maintains high activity\n\n**Key Chemical Features**:\n- Linear aliphatic dicarboxylic acid structure\n- MW=230.3, LogP=3.06 (moderate lipophilicity)\n- No obvious ER-antagonist pharmacophores, but chain length may influence membrane interactions\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Weight (0.50)**: Points toward medium activity (~64)\n**Chemical Weight (0.50)**: Shows high variability but trending toward higher activities (average ~72)\n\n**Conflict Resolution**:\nThe chemical context shows the exact same molecule tested multiple times with significant variability (30-88), suggesting experimental variability or concentration-dependent effects. The longer-chain analog consistently shows high activity, supporting a structure-activity relationship.\n\n**Integration Strategy**:\n- Weight the more consistent experimental protocol baseline (64)\n- Adjust upward based on chemical similarity to high-activity compounds\n- Account for experimental variability observed in identical compounds\n\n**Calculation**: (64 \u00d7 0.50) + (72 \u00d7 0.50) = 68\n\n**FINAL PREDICTION**: 68\n\n**CONFIDENCE ASSESSMENT**: Medium\n\n**Justification**: While both contexts provide strong evidence, the significant variability observed in identical chemical structures (30-88 range) introduces uncertainty. The experimental protocol shows consistency, but the chemical evidence reveals inherent variability in this assay for dicarboxylic acids. The prediction represents a balanced estimate accounting for both the experimental baseline and the chemical similarity trends, but confidence is tempered by the observed experimental variability.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_BLA_Agonist_ratio assay measures estrogen receptor alpha agonist activity using HEK293T cells over 24 hours in a 1536-well format. The experimental protocol context shows consistent medium activity (59) across all similar assays, suggesting this specific assay configuration tends to produce moderate responses. However, the experimental context provides limited discriminatory power since all reference assays show identical activity values.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule is a complex \u03b2-lactam antibiotic derivative (cephalosporin-like structure) with:\n- Core \u03b2-lactam ring fused to a dihydrothiazine ring\n- Methoxyimino group providing stability\n- Aminothiazole side chain\n- Thiadiazole substituent\n\n**Key Chemical Evidence**:\n- **Perfect matches** (Tanimoto 1.000): Show conflicting activities - one very low (28) and one high (84)\n- **Near-identical structures** (Tanimoto 0.837): Consistently show high activity (83-84)\n- The structural differences in high-activity analogs involve tetrazole vs thiadiazole substitution\n- Molecular weight (513.6) and moderate lipophilicity (LogP=0.46) suggest reasonable bioavailability\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Conflict Resolution**:\nThe chemical context reveals a critical structure-activity relationship conflict with identical molecules showing vastly different activities (28 vs 84). This suggests:\n1. Potential assay variability or experimental conditions\n2. Possible stereochemical or conformational effects\n3. Concentration-dependent biphasic response\n\n**Weight-Balanced Analysis** (50:50):\n- Experimental context: Points toward medium activity (~59)\n- Chemical context: Shows bimodal distribution but leans toward higher activity (4/5 analogs show high activity 83-84)\n\n**Resolution Strategy**:\nGiven the structural complexity and the predominance of high-activity analogs in the chemical dataset, combined with the moderate experimental baseline, I predict activity in the medium-high range.\n\n**FINAL PREDICTION**: 72\n\n**CONFIDENCE ASSESSMENT**: Medium\n\n**Justification**: While we have perfect structural matches, the conflicting activity data (28 vs 84 for identical structures) introduces significant uncertainty. The experimental context provides a stable baseline but limited discrimination. The predominance of high-activity similar structures (4/5 showing 83-84) supports a higher prediction than the experimental baseline, leading to a medium-high prediction with moderate confidence due to the inherent data conflicts.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780 assay measures estrogen receptor alpha (ER\u03b1) agonist activity in VM7 human breast tissue cells. This is a luciferase reporter assay conducted in the presence of ICI182780 (fulvestrant), a selective estrogen receptor degrader (SERD). The consistent activity score of 64 (Medium category) across all similar assays suggests this represents a baseline or reference measurement for this specific protocol.\n\nKey experimental factors:\n- 22-hour exposure time allows for transcriptional responses\n- 1536-well format indicates high-throughput screening\n- ICI182780 presence suggests measurement of competitive agonism\n- VM7 breast tissue cells are relevant for estrogenic activity assessment\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule shows remarkable structural consistency with training data:\n- **Perfect matches** (Tanimoto 1.000): Two identical molecules with LogAC50 values of 83-84 (High activity)\n- **Near-identical variants** (Tanimoto 0.856): Molecules differing only by a carboxylic acid group, showing mixed activity (43-83 LogAC50)\n\nStructural features relevant to ER\u03b1 activity:\n- **Diphenylmethanol core**: Classic pharmacophore for estrogen receptor binding\n- **Piperidine linker**: Provides appropriate spacing and flexibility\n- **tert-Butylphenol group**: Bulky aromatic substituent that may influence receptor selectivity\n- **High lipophilicity** (LogP=6.45): Favorable for membrane permeation but may affect solubility\n\nThe molecule's architecture resembles selective estrogen receptor modulators (SERMs) with the diphenyl tertiary alcohol being a key binding motif.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Chemical Evidence (Weight 0.50)**:\n- Perfect structural matches show consistently high activity (83-84)\n- Minor structural variants show variable activity (43-83)\n- Core pharmacophore strongly suggests ER\u03b1 interaction capability\n\n**Experimental Evidence (Weight 0.50)**:\n- Assay baseline of 64 provides reference point\n- Protocol designed to detect competitive ER\u03b1 agonism\n- 22-hour timeframe captures transcriptional responses\n\n**Integration Strategy**:\nThe chemical evidence strongly favors high activity based on perfect structural matches, while the experimental context suggests moderate baseline activity. Given equal weighting and the strength of the chemical similarity data (perfect matches with high activity), the prediction should lean toward the higher end while acknowledging the experimental baseline.\n\n**Conflict Resolution**:\nThe chemical evidence (83-84 activity) is more specific and directly relevant than the general experimental baseline (64). The perfect structural matches provide compelling evidence for high activity.\n\n**FINAL PREDICTION**: 82\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: \n- **Chemical confidence**: Very high due to perfect structural matches (Tanimoto 1.000) with consistent high activity\n- **Experimental confidence**: Medium due to relevant assay design but limited specificity to the query molecule\n- **Overall confidence**: High because the chemical evidence is exceptionally strong (identical molecules) and the experimental context is appropriate for the predicted activity range\n- The prediction of 82 aligns closely with the 83-84 values from identical structures while acknowledging potential experimental variability",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol data shows remarkably consistent results across all similar assays. All three reference assays are identical to the target assay (TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780) with perfect similarity scores of 0.950. Each shows:\n- Activity score: 64 (Medium category)\n- Same cell line: VM7 human breast tissue\n- Same measurement timepoint: 22 hours\n- Same plate format: 1536-well\n\nThis consistency in the experimental context provides strong evidence for a medium-level activity prediction around 64.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe chemical similarity analysis reveals mixed activity patterns:\n- Most similar molecules (Tanimoto: 0.567) show variable activity: one Low (38) and three High (80-84)\n- The query molecule contains a methoxybenzene group and tertiary amine, similar to reference compounds\n- Structural features include: dibutylamine substituent, amide group, and para-methoxyphenyl ring\n- The chemical evidence suggests potential for both low and high activity, with a slight bias toward higher activity (4/5 similar molecules show high activity)\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\nApplying the weighting strategy (Experimental: 0.60, Chemical: 0.40):\n\n**Experimental contribution (60%)**: 64 \u00d7 0.60 = 38.4\n**Chemical contribution (40%)**: \n- Average of similar molecules: (38 + 84 + 84 + 83 + 80) \u00f7 5 = 73.8\n- Chemical contribution: 73.8 \u00d7 0.40 = 29.5\n\n**Weighted prediction**: 38.4 + 29.5 = 67.9\n\nThe experimental context strongly suggests medium activity around 64, while chemical similarity indicates potential for higher activity. The integration yields a prediction in the medium-high range.\n\n**FINAL PREDICTION**: 68\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: High confidence is warranted due to:\n1. Perfect experimental protocol matches with consistent activity scores\n2. Reasonable chemical similarity scores (0.551-0.567 Tanimoto)\n3. Clear convergence between experimental and chemical evidence toward medium-high activity\n4. Strong experimental context weight (0.60) aligns with the most reliable data source\n5. The prediction falls within the expected range based on both contexts",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol shows highly consistent patterns across all similar assays (similarity 0.961). All three reference assays are identical TOX21_ERa_LUC_VM7_Agonist protocols using VM7 human breast tissue cell lines with 22-hour exposure periods in 1536-well plates. The consistent activity score of 59 (Medium category) across all similar protocols provides a reliable baseline expectation for this specific assay format.\n\nThe VM7 cell line is specifically designed to detect estrogen receptor alpha agonist activity, making this a targeted endocrine disruption screening assay. The 22-hour exposure window allows for both immediate and delayed cellular responses to be captured.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe chemical similarity analysis reveals extremely strong structural matches:\n\n**Perfect Matches (Tanimoto 1.000)**: Two identical molecules with LogAC50 values of 87 and 86, both classified as \"Very High\" activity. These perfect matches provide the strongest possible chemical evidence.\n\n**Key Structural Features**:\n- Ethyl carbamate ester group (potential for metabolic activation)\n- Dimethylbenzene aromatic system (potential for receptor binding)\n- Cyclohexane ring with methoxy substitution (affects lipophilicity and binding)\n- Molecular weight 373.4 Da with LogP 3.65 (favorable for cellular uptake)\n\n**Supporting Evidence**: The third most similar molecule (Tanimoto 0.556) also shows high activity (LogAC50: 80), reinforcing the pattern that structurally related compounds exhibit significant ER\u03b1 agonist activity.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Context Contribution (Weight 0.50)**:\n- Baseline expectation: 59 (Medium activity)\n- High confidence due to identical assay protocols\n\n**Chemical Context Contribution (Weight 0.50)**:\n- Perfect structural matches indicate: 86-87 (Very High activity)\n- Strong chemical evidence with multiple supporting data points\n\n**Weighted Integration**:\n- Experimental contribution: 59 \u00d7 0.50 = 29.5\n- Chemical contribution: 86.5 \u00d7 0.50 = 43.25\n- Combined prediction: 29.5 + 43.25 = 72.75\n\nThe chemical structure evidence strongly suggests higher activity than the experimental baseline, indicating this specific molecular structure has enhanced ER\u03b1 agonist properties compared to the average compound tested in this assay.\n\n**FINAL PREDICTION**: 73\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: The confidence is high due to:\n1. Perfect molecular matches (Tanimoto 1.000) providing definitive chemical evidence\n2. Identical experimental protocols ensuring assay consistency\n3. Convergent evidence from multiple similar molecules\n4. Clear structure-activity relationship supporting the elevated prediction above the experimental baseline\n\nThe prediction of 73 represents a balanced integration where the strong chemical evidence for very high activity (86-87) is moderated by the experimental protocol baseline (59), resulting in a high activity prediction that accounts for both contexts equally.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol shows consistent patterns across similar assays:\n- All similar assays are identical (TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780)\n- Consistent activity level of 64 (Medium category) across all experimental references\n- This is an estrogen receptor alpha (ER\u03b1) agonist assay using VM7 human breast tissue cells\n- The assay measures estrogenic activity in the presence of ICI182780 (an ER antagonist)\n- 22-hour exposure time in 1536-well format provides standardized conditions\n\nThe experimental context strongly suggests moderate estrogenic activity (Activity: 64, Medium category).\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe molecular structure analysis reveals critical patterns:\n- **Perfect matches** (Tanimoto 1.000): Two identical molecules with activities of 56 (Medium) and 87 (Very High)\n- **Structural analogs** (Tanimoto 0.548): Ethyl-substituted variants showing consistently high activity (74-87)\n- **Key structural features**: \n  - Symmetric azo compound with two nitrile groups\n  - Quaternary carbon centers providing structural rigidity\n  - MW=164.2, LogP=2.04 suggests good bioavailability\n- **Structure-activity relationship**: The core azo-dinitrile scaffold appears to confer significant estrogenic activity\n\nThe chemical context shows variable but generally elevated activity levels (56-87 range).\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Context Integration (50:50 weighting)**:\n- Experimental context (Weight 0.50): Consistently points to activity level 64 (Medium)\n- Chemical context (Weight 0.50): Shows range of 56-87, with identical molecules at 56 and 87\n\n**Conflict Resolution**:\nThe chemical context shows conflicting data for identical molecules (56 vs 87), suggesting experimental variability. The experimental protocol context provides more consistent data (64 across multiple assays).\n\n**Weighted Calculation**:\n- Experimental contribution: 64 \u00d7 0.50 = 32\n- Chemical contribution: Average of identical molecules (56+87)/2 = 71.5 \u00d7 0.50 = 35.75\n- **Integrated prediction**: 32 + 35.75 = 67.75 \u2248 **68**\n\n**FINAL PREDICTION**: 68\n\n**CONFIDENCE ASSESSMENT**: **High**\n\nJustification:\n- **Experimental evidence quality**: Excellent - multiple consistent measurements from identical assay protocols\n- **Chemical evidence quality**: Good - perfect structural matches available, though showing some variability\n- **Convergent prediction**: Both contexts point to medium-to-high activity levels (60-70 range)\n- **Structural rationale**: The azo-dinitrile scaffold has demonstrated estrogenic activity in this specific assay system\n- **Balanced weighting**: Equal consideration of both experimental and chemical contexts reduces bias\n\nThe prediction of 68 represents a Medium-High activity level, consistent with the compound's structural features and experimental precedent in this ER\u03b1 agonist assay.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe assay TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780 is an estrogen receptor alpha (ER\u03b1) agonist assay using VM7 human breast tissue cells. The protocol includes:\n- 22-hour exposure period in 1536-well format\n- Presence of 10nM ICI182780 (selective estrogen receptor degrader)\n- Luciferase reporter system for ER\u03b1 activation\n\nThe experimental evidence shows consistent medium activity (64) across similar assays, suggesting moderate estrogenic activity for compounds tested in this specific protocol. The presence of ICI182780 as a competitive antagonist indicates this assay measures compounds that can overcome this inhibition.\n\n**CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule is a dihydropyridine derivative with key structural features:\n- Dihydropyridine core (calcium channel blocker scaffold)\n- Meta-nitrophenyl substituent (electron-withdrawing group)\n- Ethyl ester chains with dimethylaminobenzyl group\n- Molecular weight: 479.5 Da, LogP: 3.68\n\nThe chemical similarity data is exceptionally strong with perfect Tanimoto coefficients (1.000) across all fingerprint methods, indicating these are likely the same compound tested multiple times. The activity values are consistently high to very high (83-88), demonstrating potent ER\u03b1 agonist activity.\n\n**INTEGRATED PREDICTION LOGIC**:\n\nThere's a significant discrepancy between contexts:\n- Experimental context: Medium activity (64)\n- Chemical context: High to Very High activity (83-88 average: 85.6)\n\nGiven equal weighting (0.50 each), I need to reconcile this difference. The chemical evidence is based on perfect structural matches with consistent high activity, while the experimental evidence shows medium activity in the same assay type. This suggests potential variability in experimental conditions or data quality.\n\nThe chemical evidence is more reliable due to:\n1. Perfect structural similarity (1.000 Tanimoto)\n2. Consistent high activity across multiple measurements\n3. Multiple independent data points\n\nWeighted calculation: (0.50 \u00d7 64) + (0.50 \u00d7 85.6) = 32 + 42.8 = 74.8\n\n**FINAL PREDICTION**: 85\n\n**CONFIDENCE ASSESSMENT**: High\n\nThe confidence is high because:\n1. Perfect chemical similarity provides definitive structural match\n2. Consistent activity pattern across multiple chemical measurements (83-88)\n3. The compound shows clear ER\u03b1 agonist activity despite experimental variability\n4. Strong convergent evidence from chemical context outweighs the single experimental reference point\n\nThe prediction favors the chemical context due to the exceptional similarity scores and consistent high activity measurements, suggesting this compound has potent estrogenic activity in the TOX21 ER\u03b1 agonist assay.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe assay TOX21_ERa_LUC_VM7_Agonist_10nM_ICI182780 is an estrogen receptor alpha (ER\u03b1) agonist assay using VM7 human breast tissue cells. The protocol includes ICI182780 (fulvestrant), a selective estrogen receptor degrader (SERD), which blocks endogenous estrogen activity to isolate compound-specific agonist effects. This is a well-validated 22-hour exposure assay in 1536-well format.\n\nFrom the experimental context, all similar assays show consistent activity scores of 64 (Medium category), suggesting this assay has moderate sensitivity for detecting ER\u03b1 agonist activity. The consistent scoring across similar protocols indicates reliable assay performance.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule contains:\n- Dichlorobenzoyl group (potential ER\u03b1 binding motif)\n- Glutamic acid derivative backbone\n- Dipentylamine substituent (high lipophilicity, MW=458.4, LogP=3.83)\n- Carboxylate anion (charged state)\n\nChemical similarity analysis reveals:\n- Perfect matches (Tanimoto=1.000) show Very High (85) and High (82) activities\n- Closely related analog (Tanimoto=0.821) with methoxy substitution shows High activity (84)\n- More distant analogs with shorter alkyl chains show High (84) to Medium (51) activities\n\nThe dichlorobenzoyl moiety appears critical for ER\u03b1 interaction, while the dipentyl substitution enhances potency compared to dipropyl analogs.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Weight (0.50)**: Assay baseline suggests Medium activity (64)\n**Chemical Weight (0.50)**: Perfect structural matches strongly indicate High to Very High activity (82-85)\n\nThe chemical evidence is exceptionally strong with perfect molecular matches showing consistent high activity. The experimental context provides assay-specific baseline expectations. The integration suggests the compound should perform above the assay baseline due to its optimal structural features for ER\u03b1 agonism.\n\nWeighted calculation:\n- Experimental contribution: 64 \u00d7 0.50 = 32\n- Chemical contribution: 83.5 \u00d7 0.50 = 41.75\n- **Integrated prediction: 74**\n\n**FINAL PREDICTION**: 74\n\n**CONFIDENCE ASSESSMENT**: **High**\n\nJustification: Perfect chemical matches (Tanimoto=1.000) with consistent high activities provide exceptionally strong chemical evidence. The experimental context confirms assay reliability and appropriate sensitivity. The slight upward adjustment from assay baseline (64\u219274) is well-supported by the superior structural features identified in the chemical analysis. Both contexts are high-quality and mutually reinforcing.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_LUC_VM7_Agonist assay measures estrogen receptor alpha agonist activity using VM7 human breast tissue cells with luciferase reporter. All similar assays show identical descriptions and consistent medium activity (59), indicating this assay has well-established baseline activity levels. The 22-hour exposure protocol suggests assessment of sustained estrogenic effects rather than acute responses.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (CCCOc1cc(N)ccc1C(=O)OCCN(CC)CC) shows remarkable structural consistency in the dataset:\n- Three identical molecules (Tanimoto 1.000) show highly variable activities: 29 (Very Low), 39 (Low), and 80 (High)\n- Two structural isomers (Tanimoto 0.794) with amino group repositioning show medium-high activities (53, 84)\n- The molecule contains key structural features for ER activity: aromatic ring with amino group, ester linkage, and tertiary amine chain\n- MW=294.4 and LogP=2.56 indicate favorable pharmacokinetic properties for cellular uptake\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight 0.50)**:\n- Assay baseline suggests medium activity range (around 59)\n- Protocol designed for sustained estrogenic response detection\n\n**Chemical Evidence (Weight 0.50)**:\n- Identical structures show extreme variability (29-80 range)\n- Structural isomers consistently show medium-high activity (53-84)\n- The amino group position appears critical for activity modulation\n\n**Conflict Resolution**:\nThe chemical evidence shows high variability for identical structures, suggesting experimental noise or concentration-dependent effects. However, the structural isomer data provides more reliable guidance, showing consistent medium-high activity. The experimental baseline (59) falls within the observed range and aligns with the structural isomer activities.\n\n**Weighted Integration**:\n- Experimental prediction: ~59 (medium baseline)\n- Chemical prediction: ~55 (average of more reliable isomer data: (53+84)/2 = 68.5, moderated by variable identical structure data)\n- Final calculation: (59 \u00d7 0.50) + (55 \u00d7 0.50) = 57\n\n**FINAL PREDICTION**: 57\n\n**CONFIDENCE ASSESSMENT**: Medium\n\n**Justification**: While we have perfect structural matches in the database, the extreme variability in their activities (29-80) reduces confidence. However, the structural isomer data provides consistent medium-high activity patterns, and the experimental assay shows established baseline activity. The balanced weighting helps moderate the chemical variability with experimental consistency, but the inherent data conflicts prevent high confidence.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_BLA_Agonist_ratio assay measures estrogen receptor alpha (ER\u03b1) agonist activity using HEK293T cells with a 24-hour exposure protocol. All three similar assay entries show identical activity values of 59 (Medium category), suggesting this represents a baseline or reference measurement for this specific assay protocol. The high similarity scores (0.958) indicate these are likely the same assay with consistent experimental conditions. The medium activity level suggests moderate estrogenic potential under these specific experimental conditions.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule is 17\u03b1-ethynylestradiol, a synthetic estrogen with a steroid backbone. Key structural analysis:\n\n- **Perfect Match (Tanimoto 1.000)**: Identical molecule shows LogAC50=28 (Very Low activity)\n- **Close Analogs (Tanimoto 0.863)**: Methoxy-substituted variants show LogAC50 values of 43-54 (Low to Medium activity)\n- **Bulkier Analog (Tanimoto 0.846)**: Cyclopentoxy variant shows LogAC50=84 (High activity)\n\n**Structure-Activity Relationship**: The free phenolic hydroxyl group (query molecule) appears to confer lower activity compared to alkoxy-substituted analogs. This suggests that hydrogen bonding capability of the free OH group may actually reduce agonist potency in this specific assay system, contrary to typical ER\u03b1 binding patterns.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight 0.50)**: Points toward Medium activity (59)\n**Chemical Evidence (Weight 0.50)**: Points toward Very Low activity (28) based on perfect structural match\n\n**Conflict Resolution**: The experimental and chemical contexts provide conflicting predictions. However, the chemical evidence includes a perfect structural match (Tanimoto 1.000) with identical fingerprints across all methods, providing the highest possible confidence in chemical similarity. The experimental context shows repeated identical values that may represent assay artifacts or reference standards rather than actual test results.\n\n**Weighted Integration**: \n- Experimental contribution: 59 \u00d7 0.50 = 29.5\n- Chemical contribution: 28 \u00d7 0.50 = 14.0\n- Combined prediction: 29.5 + 14.0 = 43.5\n\n**FINAL PREDICTION**: 44\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: Despite equal weighting, confidence is high due to the perfect chemical match providing unambiguous structural precedent. The experimental context, while weighted equally, shows suspicious uniformity that reduces its reliability. The chemical evidence is exceptionally strong with perfect molecular identity, making this prediction highly reliable. The final value represents a balanced integration but leans toward the more trustworthy chemical evidence.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_LUC_VM7_Agonist assay measures estrogen receptor alpha agonist activity using VM7 human breast tissue cells with luciferase reporter gene technology. All similar assays show identical activity scores of 59 (Medium category), indicating consistent moderate estrogenic activity across multiple measurements. This assay is specifically designed to detect compounds that can activate estrogen receptors, which is crucial for endocrine disruption assessment.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (4,4'-methylenediphenol or bisphenol F) shows exceptional structural similarity to known active compounds:\n- Perfect Tanimoto similarity (1.000) with multiple molecules showing Very High activity (LogAC50: 86-89)\n- Contains classic bisphenol structure with two phenolic rings connected by a methylene bridge\n- Molecular properties (MW=200.2, LogP=2.69) are optimal for estrogen receptor binding\n- The diphenolic structure mimics natural estrogens, enabling strong receptor interaction\n- Even the closely related ortho-substituted isomer (Tanimoto 0.841) maintains Very High activity (LogAC50: 87-88)\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Convergent Evidence Analysis**:\n- Experimental context: Consistent Medium activity (59) across all similar assays\n- Chemical context: Very High activity (86-89) for identical and highly similar structures\n- **Conflict Resolution**: The chemical evidence shows much higher activity than experimental, but both contexts have equal weight (0.50 each)\n\n**Weight-Balanced Integration**:\n- Experimental contribution (0.50 \u00d7 59) = 29.5\n- Chemical contribution (0.50 \u00d7 87.5) = 43.75\n- Combined prediction: 29.5 + 43.75 = 73.25\n\n**Structural Validation**:\nThe bisphenol F structure is a well-established estrogen receptor agonist with documented endocrine disrupting properties, supporting the higher activity prediction from chemical similarity.\n\n**FINAL PREDICTION**: 73\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: High confidence is warranted due to:\n1. Perfect structural matches (Tanimoto 1.000) with consistent Very High activity\n2. Well-characterized bisphenol pharmacophore known for estrogenic activity\n3. Multiple supporting data points from both experimental and chemical contexts\n4. Clear structure-activity relationship supporting estrogen receptor agonism\n5. The prediction represents a balanced integration of both evidence sources, accounting for potential experimental variability while leveraging strong chemical precedent",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol data shows remarkable consistency across all similar assays:\n- All three similar assays are identical (TOX21_ERa_BLA_Antagonist_ratio) with similarity score 0.966\n- Consistent activity value of 59 across all instances, categorized as \"Medium\"\n- The assay uses HEK293T human kidney cells with 24-hour exposure in 1536-well format\n- This suggests a standardized, well-validated protocol with reproducible medium-level activity baseline\n\n**CHEMICAL STRUCTURE ANALYSIS**:\n\nThe chemical similarity analysis reveals compelling patterns:\n- **Perfect Match**: One molecule with identical SMILES (Tanimoto 1.000) shows LogAC50 of 83 (High activity)\n- **Structural Variants**: Multiple similar molecules (Tanimoto 0.618) with modified linker regions show consistently very high activity (LogAC50 85-89)\n- **Core Structure**: The query molecule contains a phenolic acetyl group with propyl substitution and tetrazole-containing alkyl ether chain\n- **SAR Pattern**: The tetrazole moiety and specific linker length appear to be key pharmacophoric elements driving high ER antagonist activity\n\n**INTEGRATED PREDICTION LOGIC**:\n\nApplying equal weighting (0.50 each):\n\n*Experimental Context Contribution (Weight 0.50)*:\n- Baseline assay activity: 59 (Medium)\n- Weighted contribution: 59 \u00d7 0.50 = 29.5\n\n*Chemical Structure Contribution (Weight 0.50)*:\n- Perfect structural match: 83 (High)\n- Supporting similar structures: 85-89 (Very High)\n- Average chemical prediction: ~84\n- Weighted contribution: 84 \u00d7 0.50 = 42.0\n\n*Combined Prediction*:\n29.5 + 42.0 = 71.5\n\nThe chemical structure evidence strongly suggests higher activity than the experimental baseline, indicating this specific molecular scaffold has enhanced ER antagonist properties.\n\n**FINAL PREDICTION**: 72\n\n**CONFIDENCE ASSESSMENT**: High\n\nJustification: The confidence is high due to:\n1. **Perfect chemical match** providing direct experimental evidence for this exact structure\n2. **Consistent experimental protocol** with reproducible baseline measurements\n3. **Strong SAR support** from multiple structurally related high-activity compounds\n4. **Balanced evidence** from both contexts pointing toward above-average activity\n5. **Well-characterized assay** (TOX21) with established reliability in ER antagonist screening",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_BLA_Agonist_ratio assay measures estrogen receptor alpha (ER\u03b1) agonist activity using HEK293T cells with a 24-hour exposure protocol. The experimental evidence shows consistent medium-level activity (59) across multiple similar assay runs. This suggests the assay has established baseline responses and the protocol is standardized for detecting estrogenic activity. The medium activity level indicates moderate sensitivity to compounds that can activate ER\u03b1 pathways.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (dibenzyl ether, c1ccc(COCc2ccccc2)cc1) shows remarkable structural consistency in the chemical database:\n\n- **Perfect matches** (Tanimoto 1.000): Multiple identical molecules showing very high activity (LogAC50: 87)\n- **Structural features**: Two benzyl groups connected by an ether linkage\n- **Key properties**: MW=198.3, LogP=3.40 (moderate lipophilicity)\n- **SAR patterns**: \n  - Benzyl ether structures consistently show high ER\u03b1 agonist activity\n  - Related benzyl esters show variable activity (48-83)\n  - Simpler methoxy analogs maintain high activity (86)\n\nThe dibenzyl ether scaffold appears to be a privileged structure for ER\u03b1 activation, likely due to optimal spacing and hydrophobic interactions with the receptor binding pocket.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Context (Weight 0.50)**: Predicts medium activity (~59) based on assay baseline performance\n\n**Chemical Context (Weight 0.50)**: Strongly predicts very high activity (~87) based on perfect structural matches and consistent SAR\n\n**Conflict Resolution**: The chemical evidence is exceptionally strong with perfect molecular matches showing consistent very high activity. The experimental context provides general assay behavior but lacks compound-specific information. The identical molecules in the database provide the most reliable prediction basis.\n\n**Weighted Integration**: \n- Experimental contribution: 59 \u00d7 0.50 = 29.5\n- Chemical contribution: 87 \u00d7 0.50 = 43.5\n- Combined prediction: 29.5 + 43.5 = 73\n\n**FINAL PREDICTION**: 73\n\n**CONFIDENCE ASSESSMENT**: **High** - The confidence is high due to perfect structural matches (Tanimoto 1.000) showing consistent very high ER\u03b1 agonist activity. The dibenzyl ether structure has clear precedent in the database with reproducible results. While there's some divergence between experimental baseline and chemical predictions, the identical molecular matches provide exceptionally reliable evidence for the compound's estrogenic potential.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol data shows consistent patterns across similar assays for TOX21_ERa_LUC_VM7_Antagonist_0.5nM_E2. All three similar assays demonstrate:\n- Activity level: 64 (Medium category)\n- High similarity scores (0.728) indicating reliable protocol matching\n- Consistent medium-range antagonist activity against estrogen receptor alpha\n\nThis suggests the assay conditions and experimental setup typically yield moderate antagonist responses in this activity range.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (CCOP(=O)(CC)OCC) is triethyl phosphate, showing:\n\n**Perfect Matches (Tanimoto 1.000)**:\n- Three identical molecules with varying activities: 39 (Low), 87 (Very High), 30 (Low)\n- This indicates experimental variability or different testing conditions for the same compound\n\n**Structural Analogs (Tanimoto 0.646)**:\n- CCOP(=O)(OCC)OCC (triethyl phosphate isomer) consistently shows 87 (Very High)\n- Key difference: additional ethoxy group vs ethyl group\n\n**Chemical Properties**:\n- MW=166.2, LogP=2.27 suggests moderate lipophilicity\n- Organophosphate structure may interact with biological systems\n- Small, flexible molecule with potential for multiple conformations\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight 0.50)**:\n- Suggests activity around 64 (Medium range)\n- Protocol-specific factors support moderate antagonist activity\n\n**Chemical Evidence (Weight 0.50)**:\n- Conflicting data for identical structures (30, 39, 87)\n- Structural analog consistently shows high activity (87)\n- Average of identical molecule data: (39+87+30)/3 = 52\n\n**Conflict Resolution**:\nThe chemical context shows high variability for identical molecules, suggesting experimental uncertainty. The structural analog data (consistently 87) and experimental protocol data (consistently 64) provide more reliable anchors.\n\n**Weighted Integration**:\n- Experimental contribution: 64 \u00d7 0.50 = 32\n- Chemical contribution: 52 \u00d7 0.50 = 26\n- Combined prediction: 32 + 26 = 58\n\n**FINAL PREDICTION**: 58\n\n**CONFIDENCE ASSESSMENT**: Medium\n\n**Justification**: While both contexts provide substantial data, the high variability in chemical structure results for identical molecules (range 30-87) introduces uncertainty. The experimental protocol shows consistency but limited diversity. The balanced weighting helps mitigate individual context weaknesses, but the conflicting chemical data prevents high confidence. The prediction represents a reasonable compromise between experimental protocol expectations and averaged chemical similarity data.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_LUC_VM7_Agonist assay measures estrogen receptor alpha agonist activity using VM7 human breast tissue cells with luciferase reporter. All similar assays show identical activity values of 59 (Medium category), indicating consistent baseline activity for this specific assay protocol. The 22-hour exposure time and 1536-well format suggest a standardized high-throughput screening approach. The consistent Medium activity across similar protocols suggests moderate estrogenic potential for compounds tested in this system.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (L-cysteine zwitterion) shows perfect structural matches (Tanimoto = 1.000) with two reference compounds showing divergent activities:\n- One identical structure: LogAC50 = 84 (High activity)\n- Another identical structure: LogAC50 = 51 (Medium activity)\n\nThe molecule is a small, polar amino acid derivative (MW=133.2, LogP=-2.63) with a thiazolidine ring containing both carboxylate and ammonium groups. The high polarity and zwitterionic nature typically reduce membrane permeability and receptor binding affinity. Additional similar structures (Tanimoto = 0.402) containing the same thiazolidine core show mixed activities (Low to High), suggesting structural variability in estrogenic response.\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight 0.50)**: Consistent Medium activity (59) across all similar assays provides stable baseline expectation.\n\n**Chemical Evidence (Weight 0.50)**: Perfect structural matches show variable activity (51-84), with one Medium and one High result. The amino acid nature and high polarity suggest limited estrogenic potential, but the presence of High activity in identical structures cannot be ignored.\n\n**Integration**: \n- Experimental context: 59 \u00d7 0.50 = 29.5\n- Chemical context: Average of perfect matches (51+84)/2 = 67.5 \u00d7 0.50 = 33.75\n- Combined prediction: 29.5 + 33.75 = 63.25\n\n**FINAL PREDICTION**: 63\n\n**CONFIDENCE ASSESSMENT**: Medium - While we have perfect chemical matches and consistent experimental protocols, the significant variability in activity for identical structures (51 vs 84) introduces uncertainty. The zwitterionic amino acid structure typically shows low estrogenic activity, but the experimental evidence suggests moderate potential in this specific assay system.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe TOX21_ERa_LUC_VM7_Agonist assay measures estrogen receptor alpha agonist activity using VM7 human breast tissue cells with luciferase reporter gene technology. All similar assays show identical activity values of 59 (Medium category), indicating consistent experimental conditions. This assay specifically targets estrogenic activity, which is crucial for endocrine disruption assessment. The 22-hour exposure time and 1536-well format suggest a standardized high-throughput screening protocol optimized for detecting ER-alpha activation.\n\n\ud83e\uddec **CHEMICAL STRUCTURE ANALYSIS**:\n\nThe query molecule (O=c1c(O)c(O)c1=O) is squaric acid, a cyclic diketone with two hydroxyl groups. Key structural observations:\n\n- **Perfect matches**: Two identical molecules show conflicting activities (LogAC50: 86 - Very High vs 34 - Low), indicating potential experimental variability\n- **Structural relatives**: Pyrogallol and rhodizonic acid derivatives show consistently high activities (77-84 LogAC50)\n- **SAR patterns**: Molecules with multiple hydroxyl groups and carbonyl functionalities demonstrate significant ER-alpha agonist activity\n- **Physicochemical properties**: Low molecular weight (114.1), negative LogP (-1.31) suggesting hydrophilic character typical of phenolic compounds with estrogenic potential\n\n\ud83c\udfaf **INTEGRATED PREDICTION LOGIC**:\n\n**Experimental Evidence (Weight: 0.50)**:\n- Consistent medium activity (59) across all similar assays\n- Reliable experimental protocol for ER-alpha detection\n\n**Chemical Evidence (Weight: 0.50)**:\n- Perfect structural matches show variable but notable activity\n- Related polyphenolic structures consistently active\n- Hydroxyl-rich structure typical of estrogenic compounds\n\n**Conflict Resolution**:\nThe experimental context provides consistent medium activity, while chemical context shows high variability in perfect matches but consistent high activity in structural analogs. Given equal weighting, I prioritize the experimental consistency while acknowledging the chemical potential for higher activity.\n\n**Integration Calculation**:\n- Experimental contribution: 59 \u00d7 0.50 = 29.5\n- Chemical contribution: Average of relevant activities (86, 34, 84, 83, 77) = 72.8 \u00d7 0.50 = 36.4\n- Combined prediction: 29.5 + 36.4 = 65.9 \u2248 66\n\n**FINAL PREDICTION**: 66\n\n**CONFIDENCE ASSESSMENT**: Medium - While both contexts provide substantial evidence, the conflicting activities in perfect chemical matches (86 vs 34) introduce uncertainty. However, the consistent experimental protocol data and supporting evidence from structurally related compounds provide reasonable confidence in a medium-to-high activity prediction.",
+      "\ud83d\udd2c **EXPERIMENTAL CONTEXT ANALYSIS**:\n\nThe experimental protocol shows remarkably consistent patterns across all similar assays:\n- All three similar assays are identical (TOX21_ERa_BLA_Antagonist_ratio) with perfect similarity scores (0.966)\n- Consistent activity value of 59 across all similar protocols\n- All categorized as \"Medium\" activity\n- The assay uses HEK293T human kidney cells with 24-hour exposure in 1536-well plates\n- This suggests a well-established, reproducible protocol for estrogen receptor alpha antagonist activity\n\n**CHEMICAL STRUCTURE ANALYSIS**:\n\nThe molecular structure analysis reveals compelling patterns:\n- **Perfect Match**: The first similar molecule has identical SMILES (Tanimoto = 1.000) with LogAC50 = 84 (High activity)\n- **Core Structure**: The query molecule contains a pyrazole ring system with difluoromethyl group, sulfonamide functionality, and methoxyfluorobenzene substituent\n- **Structure-Activity Relationships**:\n  - Molecules with trifluoromethyl groups show variable activity (30-88)\n  - The methoxy + fluorine substitution pattern appears to enhance activity\n  - Sulfonamide vs sulfoxide modifications affect potency\n- **Molecular Properties**: MW=397.4, LogP=3.27 suggests good drug-like characteristics\n\n**INTEGRATED PREDICTION LOGIC**:\n\nWith equal weighting (0.50 each), I must balance both contexts:\n\n**Experimental Context (Weight 0.50)**: \n- Consistent medium activity baseline of 59\n- High protocol reliability and reproducibility\n\n**Chemical Context (Weight 0.50)**:\n- Perfect structural match shows LogAC50 = 84 (High activity)\n- Supporting evidence from similar structures shows this scaffold can achieve high activity\n- The specific substitution pattern (methoxy + fluorine) appears favorable\n\n**Conflict Resolution**:\nThe chemical context provides a perfect structural match (84) while experimental context suggests medium baseline (59). Given the perfect chemical match and the fact that the experimental baseline represents general assay behavior rather than this specific structure, the chemical evidence should take precedence within the balanced framework.\n\n**Weighted Calculation**:\n(0.50 \u00d7 59) + (0.50 \u00d7 84) = 29.5 + 42 = 71.5 \u2248 72\n\n**FINAL PREDICTION**: 72\n\n**CONFIDENCE ASSESSMENT**: High\n\n**Justification**: High confidence is warranted due to:\n1. Perfect structural match in chemical context (Tanimoto = 1.000)\n2. Consistent experimental protocol data across multiple similar assays\n3. Strong supporting evidence from structurally related molecules\n4. Clear structure-activity relationship patterns that support the prediction\n5. Both contexts provide robust, high-quality data with minimal uncertainty"
+    ],
+    "times": [
+      14.587869644165039,
+      15.725774765014648,
+      14.650021314620972,
+      15.557868957519531,
+      14.558248281478882,
+      16.625444650650024,
+      12.752707958221436,
+      16.928885221481323,
+      16.221439123153687,
+      15.185364246368408,
+      16.352172374725342,
+      16.08851671218872,
+      16.332900524139404,
+      14.814282894134521,
+      14.400938034057617,
+      13.626713752746582,
+      14.088003635406494,
+      12.720190286636353,
+      14.041252613067627,
+      15.861974000930786
+    ],
+    "errors": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "metadata": [
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.958339337259531,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.7283182442188263,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.958339337259531,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.6000000000000001,
+          "chemical": 0.39999999999999997
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 0.5669775086647816
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9500429257750511,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.958339337259531,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9656288102269173,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.958339337259531,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.7283182442188263,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9612268768250942,
+        "max_chemical_similarity": 1.0
+      },
+      {
+        "weights": {
+          "assay": 0.5,
+          "chemical": 0.5
+        },
+        "n_similar_assays": 3,
+        "n_similar_molecules": 5,
+        "max_assay_similarity": 0.9656288102269173,
+        "max_chemical_similarity": 1.0
+      }
+    ],
+    "metrics": {
+      "mae": 40.25,
+      "mse": 2173.25,
+      "rmse": 46.61812952060604,
+      "r2": -4.8500901773937395,
+      "within_10_pct": 10.0,
+      "within_20_pct": 20.0,
+      "assay_weighted_mae": 84.0,
+      "chemical_weighted_mae": Infinity,
+      "balanced_mae": 37.94736842105263,
+      "n_assay_weighted": 1,
+      "n_chemical_weighted": 0,
+      "n_balanced": 19,
+      "n_high_assay_sim": 20,
+      "n_high_chem_sim": 19,
+      "avg_assay_weight": 0.505,
+      "avg_chemical_weight": 0.495,
+      "n_samples": 20,
+      "n_errors": 0,
+      "avg_time": 15.05602844953537
+    }
+  },
+  "cost_breakdown": {
+    "input_tokens": 32572,
+    "output_tokens": 13156,
+    "api_calls": 20,
+    "input_cost": 0.09771600000000001,
+    "output_cost": 0.19734,
+    "total_cost": 0.295056
+  },
+  "settings": {
+    "data_file": "combined_train_sampled2.jsonl",
+    "test_size": 0.2,
+    "random_state": 42,
+    "test_subset_size": 20,
+    "langchain_available": true,
+    "rdkit_available": true
+  }
+}

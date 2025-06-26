@@ -1,32 +1,49 @@
+# .gitignore
+# API Keys
+config.py
+
+# Data files
+data/
+*.jsonl
+
+# Results
+results.json
+hybrid_chemrag_results.json
+*.log
+
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Environments
-.env
-.venv/
+# Virtual environments
 venv/
+env/
+ENV/
 
-# Jupyter
-.ipynb_checkpoints/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
-# VSCode
-.vscode/
-
-# FAISS & Pickle artifacts
-*.faiss
-*.pkl
-
-# Data
-/data/*.jsonl
-
-# Results
-hybrid_rag_results.json
